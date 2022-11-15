@@ -1,11 +1,14 @@
  body{
     background-color: pink;
+    font-family: 'Roboto Mono', monospace;
 }
 
-.grid{
+#rosco-container{
     display: grid;
-    grid-template-columns: repeat(16,1fr);
-    grid-template-rows: repeat(16,1fr);
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: repeat(5,1fr);
+    gap: 1rem
+    ;
 }
 
 .game-title{
@@ -18,16 +21,15 @@
     justify-content: center;
 }
 
-#rosco-container{
+/* #rosco-container{
     display: flex;
     flex-wrap: wrap;
     max-width: 80%;
     width: 600px;
-    
     height: 400px;
-    background-color: lightblue;
     margin-right: 1rem;
-}
+    
+} */
 
 .circle{
     border: 1px solid black;
@@ -40,205 +42,40 @@
     background-color: lightblue;
 }
 
+.button{
+    padding: 5px 25px;
+    border-radius: 10px;
+    border: 2px solid lightblue;
+    text-transform: uppercase;
+    background-color: white;
+    outline: none;
+    cursor: pointer;
+}
+
+.button:hover{
+    background-color: lightblue;
+    color: white;
+}
+
+#display-questions{
+    max-width: 400px;
+    margin-left: 2rem;
+}
+
 .red{
     background-color: red;
+    color: white;
+    border: 2px solid white;
 }
 .green{
     background-color: green;
-}
-
-/* 
-body {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    background-color: #282929;
-    color: #F2B544;
-    margin: 0;
-    letter-spacing: 1px;
-    font-weight: 600;
-
-}
-
-.wrapper {
-    text-align: center;
-    width: 100%;
-    margin: 50px 0;
-    background-color: #282929;
-}
-
-.definitions,
-.definitions>p,
-.answers {
-    background-color: #282929;
-    margin-top: 10px;
-    padding: 10px;
-}
-
-h1 {
-
-    padding: 10px;
-    margin: 0;
-}
-
-ul {
-    padding: 0;
-    width: 860px;
-    margin: 30px auto;
-}
-
-li {
-    box-shadow: 2px 2px 5px rgba(0, 0, 1, 0.5),
-        inset 3px 3px 6px rgba(0, 0, 1, 0.5);
-    color: #225980;
-    background-color: #F2B544;
-    display: inline-block;
-    margin: 10px;
-    border: solid 1.5px #4c9e70;
-    border-radius: 50%;
-    padding: 10px;
-    width: 30px;
-    text-align: center;
-}
-
-table,
-th,
-td {
-    border: 1px solid #51A66F;
-    width: 500px;
-}
-
-.hidden {
-    display: none;
-}
-
-button,
-input[type="button"] {
-    font-weight: 600;
-    border: none;
-    padding: 10px;
-    margin: 2px;
-    background-color: #51A66F;
-    font-family: inherit;
-    min-width: 60px;
-}
-
-#isCorrect {
-    margin-top: 20px;
-
-}
-
-input[type="text"] {
-    border-style: none;
-    height: 28px;
-    padding: 3px;
-
-}
-
-
-
-input[type="button"]:hover,
-button:hover {
     color: white;
-    transition: 0.3s;
-    box-shadow: 1px 1px 0 #FBC638;
-
+    border: 2px solid white;
 }
 
-input[value="END"]:hover {
-    background-color: red;
+input[type="text" i] {
+    padding: 5px 70px;
+    margin-bottom: 1.5rem;
+    outline: none;
 }
 
-#table {
-    margin: 25px auto;
-
-}
-
-#points,
-#timer {
-    display: inline-block;
-    margin: 5px auto;
-    height: 70px;
-    width: 70px;
-    max-height: 70px;
-    max-width: 70px;
-    border-radius: 50%;
-    background-color: #51A66F;
-    color: white;
-    line-height: 65px;
-}
-
-#points {
-    margin-left: 200px;
-
-
-
-}
-
-#timer {
-    margin-right: 200px;
-}
-
-.current {
-    background-color: white;
-
-}
-
-.correct {
-    background-color: #51A66F;
-}
-
-.wrong,
-#timer.wrong {
-    background-color: red;
-}
-
-.pasapalabra {
-    background-color: rgb(250, 138, 98);
-}
-
-.rules {
-    width: 800px;
-    margin: 0 auto;
-    line-height: 25px;
-} */ 
-
-
-/* .title{
-    text-align: center;
-}
-body{
-    background-color: cornflowerblue;
-}
-.contenedor{
-    width: 200px;
-    background-color: aqua;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0;
-    margin: auto;
-    
-}
-.letra{
-    height: 30px;
-    width: 30px;
-    line-height: 30px;
-    text-align: center;
-    background-color:white;
-    margin: .5em;
-    border-radius: 50%;
-}
-.answer{
-  padding: 10px;
-}
-.cont-questions{
-    height: 200px;
-    width: 200px;
-    background-color: white;
-}
-
-.a{
-    color: red
-}
-
-.ok{
-    background-color: green;
-} */
