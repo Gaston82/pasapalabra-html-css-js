@@ -176,6 +176,10 @@ const questions = [
   },
 ];
 
+const sectionRules = document.getElementsByClassName("game-rules-section");
+const buttonStartGame = document.getElementsByClassName("button");
+const inputPlayerName = document.getElementById("player-name")
+const gameContainer = document.getElementsByClassName("game-container");
 const container = document.getElementById("rosco-container");
 const displayQuestions = document.getElementById("display-questions");
 const questionsParagraph = document.querySelector(".questions");
@@ -184,7 +188,7 @@ const buttonAnswer = document.getElementById("buttonAnswer");
 const pasapalabraButton = document.getElementById("pasapalabra");
 const formAnswers = document.getElementById("form");
 const letterCircle = document.getElementsByClassName("circle");
-const displayTotalAnswered = document.getElementById("totalAnswered");
+const displayCorrectAnswered = document.getElementById("correctAnswered");
 const letters = [
   "A",
   "B",
@@ -215,6 +219,34 @@ const letters = [
   "Z",
 ];
 
+let newPLayer = {
+  playerName: "",
+  points: 0,
+  correctAnswers: 0,
+  wrongAnswers: 0,
+};
+
+const ranking = [
+  {
+    playerName: "Diego Armando",
+    points: 22,
+    correctAnswers: 22,
+    wrongAnswers: 5,
+  },
+  {
+    playerName: "Lionel",
+    points: 21,
+    correctAnswers: 21,
+    wrongAnswers: 6,
+  },
+  {
+    playerName: "Rubén Paz",
+    points: 20,
+    wrongAnswers: 7,
+    correctAnswers: 20,
+  },
+];
+
 
 let position = 0;
 let correctAnswer = 0;
@@ -222,9 +254,20 @@ let wrongAnswer = 0;
 let totalAnswered = 0;
 let answerPlayer;
 
+buttonStartGame[0].addEventListener("click",startGame);
 buttonAnswer.addEventListener("click", nextQuestion);
+// pasapalabraButton.addEventListener("click", nextQuestion);
 pasapalabraButton.addEventListener("click", nextQuestion);
-displayTotalAnswered.textContent = totalAnswered;
+displayCorrectAnswered.textContent = correctAnswer;
+
+
+function startGame() {
+  newPLayer.playerName=inputPlayerName.value
+  sectionRules[0].classList.replace("game-rules-section","hidden")
+  gameContainer[0].classList.remove("hidden")
+  
+}
+
 
 function nextQuestion() {
   checkAnswer();
@@ -271,14 +314,16 @@ const checkAnswer = () => {
     questions[position].status = 1;
     letterCircle[position].classList.add("green");
     totalAnswered++;
-    displayTotalAnswered.textContent = totalAnswered;
+    correctAnswer++;
+    displayCorrectAnswered.textContent = correctAnswer;
   } else if (answerPlayer === "pasapalabra") {
     questions[position].status = 3;
   } else {
     questions[position].status = 1;
     letterCircle[position].classList.add("red");
     totalAnswered++;
-    displayTotalAnswered.textContent = totalAnswered;
+    wrongAnswer++;
+    // displayTotalAnswered.textContent = totalAnswered;
   }
 
   
@@ -293,6 +338,12 @@ const checkTotalAnswered = () => {
   }
 };
 
+const welcomePlayer = ()=>{
+
+}
+
+
+welcomePlayer();
 createRosco();
 showQuestions();
 
