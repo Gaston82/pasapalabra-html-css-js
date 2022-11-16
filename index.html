@@ -4,20 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <title>Pasapalabra</title>
 </head>
 <body>
     <h1 class="game-title">Pasapalabra</h1>
-    <div class="game-container">
+    <section class="game-rules-section">
+        <p id="game-rules">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio obcaecati est incidunt repellat? Architecto iusto facilis sunt perspiciatis, sapiente dolorem eligendi nihil sed beatae dolorum aperiam pariatur magni eius. Labore.</p>
+        <input type="text" placeholder="Enter your name" id="player-name">
+        <button class="button">Play</button>
+    </section>
+    <div class="game-container hidden" >
         <main id="rosco-container">
         </main>
         <section id="display-questions">
             <p class="questions"></p>
                 <input id="input" type="text">
-                <button id="buttonAnswer">enviar</button>
-                <button id="pasapalabra">pasapalabra</button>       
-                <p id="totalAnswered"></p>
+                <button id="buttonAnswer" class="button">enviar</button>
+                <button id="pasapalabra" class="button">pasapalabra</button>       
+                <p id="correctAnswered"></p>
         </section>
     </div>
     <script src="index.js"></script>
