@@ -186,7 +186,7 @@ const questionsParagraph = document.querySelector(".questions");
 const input = document.getElementById("input");
 const buttonAnswer = document.getElementById("buttonAnswer");
 const pasapalabraButton = document.getElementById("pasapalabra");
-const formAnswers = document.getElementById("form");
+const formAnswers = document.getElementById("form-answers");
 const letterCircle = document.getElementsByClassName("circle");
 const displayCorrectAnswered = document.getElementById("correctAnswered");
 const letters = [
@@ -254,10 +254,12 @@ let wrongAnswer = 0;
 let totalAnswered = 0;
 let answerPlayer;
 
+formAnswers.addEventListener("submit",(e)=>{
+  e.preventDefault();
+  nextQuestion(input.value);
+})
 buttonStartGame[0].addEventListener("click",startGame);
-buttonAnswer.addEventListener("click", nextQuestion);
 // pasapalabraButton.addEventListener("click", nextQuestion);
-pasapalabraButton.addEventListener("click", nextQuestion);
 displayCorrectAnswered.textContent = correctAnswer;
 
 
@@ -323,7 +325,7 @@ const checkAnswer = () => {
     letterCircle[position].classList.add("red");
     totalAnswered++;
     wrongAnswer++;
-    // displayTotalAnswered.textContent = totalAnswered;
+  
   }
 
   
