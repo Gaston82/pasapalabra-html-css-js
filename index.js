@@ -253,114 +253,153 @@ let wrongAnswer = 0;
 let totalAnswered = 0;
 let answerPlayer;
 
-formAnswers.addEventListener("submit", (e) => {
-  e.preventDefault();
-  nextQuestion(input.value);
-});
-buttonStartGame[0].addEventListener("click", startGame);
-// pasapalabraButton.addEventListener("click", nextQuestion);
-displayCorrectAnswered.textContent = correctAnswer;
 
-function startGame() {
-  newPLayer.playerName = inputPlayerName.value;
-  sectionRules[0].classList.replace("game-rules-section", "hidden");
-  gameContainer[0].classList.remove("hidden");
-}
+let rankingTable = document.getElementById("ranking-table");
+function createRanking(){
 
-function nextQuestion() {
-  checkAnswer();
-  if (position < questions.length) {
-    position++;
+  // const{name,playerName,points,correctAnswer,wrongAnswer}=ranking
+  ranking.forEach((player,index)=>{
+    let rowTable = document.createElement("tr");
+    let columnPosition = document.createElement("td");
+    let columnPoints = document.createElement("td");
+    let columnName = document.createElement("td");
+    let columnCorrect = document.createElement("td");
+    let columnWrong = document.createElement("td");
+    columnPosition.textContent=index+1;
+    columnName.textContent=player.playerName;
+    columnPoints.textContent=player.points;
+    columnCorrect.textContent=player.correctAnswers;
+    columnWrong.textContent=player.wrongAnswers;
+    
+    rowTable.appendChild(columnPosition);
+    rowTable.appendChild(columnName);
+    rowTable.appendChild(columnPoints);
+    rowTable.appendChild(columnCorrect);
+    rowTable.appendChild(columnWrong);
+     rankingTable.appendChild(rowTable)
+  })
   }
-  if (position === questions.length) {
-    checkTotalAnswered();
-  }
-
-  input.value = "";
-  showQuestions();
-}
-
-const createRosco = () => {
-  for (let i = 0; i < letters.length; i++) {
-    let circle = document.createElement("div");
-    circle.textContent = letters[i];
-    circle.classList.add("circle");
-    container.appendChild(circle);
-  }
-};
-
-const showQuestions = () => {
-  for (let i = position; i < questions.length; i++) {
-    if (questions[i].status === 0) {
-      questionsParagraph.textContent = questions[i].question;
-      break;
-    }
-    if (questions[i].status === 3) {
-      position = i;
-      questionsParagraph.textContent = questions[i].question;
-      break;
-    }
-  }
-};
-
-const checkAnswer = () => {
-  answerPlayer = input.value;
-  let pasapalabraOption = "";
-  // let pasapalabraOption = pasapalabraButton.textContent;
-
-  if (answerPlayer === questions[position].answer) {
-    questions[position].status = 1;
-    letterCircle[position].classList.add("green");
-    totalAnswered++;
-    newPLayer.correctAnswers+=1;
-    displayCorrectAnswered.textContent = correctAnswer;
-  } else if (answerPlayer === "pasapalabra") {
-    questions[position].status = 3;
-  } else {
-    questions[position].status = 1;
-    letterCircle[position].classList.add("red");
-    totalAnswered++;
-    newPLayer.wrongAnswers+=1;
-  }
-};
-
-
-const checkTotalAnswered = () => {
-  if (totalAnswered === questions.length) {
-    console.log("has terminado el juego");
-  } else {
-    position = 0;
-  }
-};
-
-const playerPoints = (correctAnswers) => {
-  newPLayer.points = correctAnswers;
-  ranking.push(newPLayer);
-  const rankingSorted = ranking.sort(function (a, b) {
-    return b.points - a.points;
-  });
- 
-  saveRankingLocalStorage(rankingSorted);
   
-  return rankingSorted;
-};
+   createRanking();
 
-function saveRankingLocalStorage(ranking){
+// formAnswers.addEventListener("submit", (e) => {
+//   e.preventDefault();
+//   nextQuestion(input.value);
+// });
+// buttonStartGame[0].addEventListener("click", startGame);
+// // pasapalabraButton.addEventListener("click", nextQuestion);
+// displayCorrectAnswered.textContent = correctAnswer;
 
-  localStorage.setItem("ranking",JSON.stringify(ranking));
-}
+// function startGame() {
+//   newPLayer.playerName = inputPlayerName.value;
+//   sectionRules[0].classList.replace("game-rules-section", "hidden");
+//   gameContainer[0].classList.remove("hidden");
+// }
 
-function getRankingFromLocalStorage(ranking){
+// function nextQuestion() {
+//   checkAnswer();
+//   if (position < questions.length) {
+//     position++;
+//   }
+//   if (position === questions.length) {
+//     checkTotalAnswered();
+//   }
 
-  let points = localStorage.getItem("ranking",JSON.parse(ranking));
+//   input.value = "";
+//   showQuestions();
+// }
 
-  console.log(showRanking(points));
+// const createRosco = () => {
+//   for (let i = 0; i < letters.length; i++) {
+//     let circle = document.createElement("div");
+//     circle.textContent = letters[i];
+//     circle.classList.add("circle");
+//     container.appendChild(circle);
+//   }
+// };
+
+// const showQuestions = () => {
+//   for (let i = position; i < questions.length; i++) {
+//     if (questions[i].status === 0) {
+//       questionsParagraph.textContent = questions[i].question;
+//       break;
+//     }
+//     if (questions[i].status === 3) {
+//       position = i;
+//       questionsParagraph.textContent = questions[i].question;
+//       break;
+//     }
+//   }
+// };
+
+// const checkAnswer = () => {
+//   answerPlayer = input.value;
+//   let pasapalabraOption = "";
+//   // let pasapalabraOption = pasapalabraButton.textContent;
+
+//   if (answerPlayer === questions[position].answer) {
+//     questions[position].status = 1;
+//     letterCircle[position].classList.add("green");
+//     totalAnswered++;
+//     newPLayer.correctAnswers+=1;
+//     displayCorrectAnswered.textContent = correctAnswer;
+//   } else if (answerPlayer === "pasapalabra") {
+//     questions[position].status = 3;
+//   } else {
+//     questions[position].status = 1;
+//     letterCircle[position].classList.add("red");
+//     totalAnswered++;
+//     newPLayer.wrongAnswers+=1;
+//   }
+// };
 
 
-}
+// const checkTotalAnswered = () => {
+//   if (totalAnswered === questions.length) {
+//     console.log("has terminado el juego");
+//   } else {
+//     position = 0;
+//   }
+// };
 
-const welcomePlayer = () => {};
+// const playerPoints = (correctAnswers) => {
+//   newPLayer.points = correctAnswers;
+//   ranking.push(newPLayer);
+//   const rankingSorted = ranking.sort(function (a, b) {
+//     return b.points - a.points;
+//   });
+ 
+//   saveRankingLocalStorage(rankingSorted);
+  
+//   return rankingSorted;
+// };
 
-welcomePlayer();
-createRosco();
-showQuestions();
+// function saveRankingLocalStorage(ranking){
+
+//   localStorage.setItem("ranking",JSON.stringify(ranking));
+// }
+
+// function getRankingFromLocalStorage(ranking){
+
+//   let points = localStorage.getItem("ranking",JSON.parse(ranking));
+
+//   console.log(showRanking(points));
+
+// }
+
+
+
+// const showRanking =(sortedRanking)=>{
+
+//   sortedRanking.forEach((player,index)=>{
+//     console.log(`Position ${index + 1}: ${player.playerName}\n Points: ${player.points}\n Correct Answers: ${player.correctAnswers} \n Wrong Answers: ${player.wrongAnswers}`)
+//     })
+
+
+// }
+
+// const welcomePlayer = () => {};
+
+// welcomePlayer();
+// createRosco();
+// showQuestions();
