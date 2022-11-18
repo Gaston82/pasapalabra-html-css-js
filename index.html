@@ -14,13 +14,15 @@
 
 <body>
     <h1 class="game-title">Pasapalabra</h1>
-    <section class="game-rules-section">
+    <section class="game-rules-section hidden">
         <p id="game-rules">BIENVENIDOS AL JUEGO DE PASAPALABRA DE ISDI CODERS ACADEMY!
             Basado en el exitoso concurso de televisión Pasapalabra de Telecinco, las normas son muy sencillas:
             Se mostraran unas definiciones por pantalla y el usuario deberá responder con la palabra a la que corresponden. El usuario tiene la opción de decir Pasapalabra y dejar esa definición para mas adelante.
             El programa es sensible a las acentuación, asi que se debe introducir la palabra sin tilde. Es posible utilizar la tecla ENTER para enviar la palabra.</p>
-        <input type="text" placeholder="Enter your name" id="player-name">
-        <button class="button">Play</button>
+        <form  id="form-player-name">
+            <input type="text" placeholder="Enter your name" id="player-name">
+            <button class="button">Play</button>
+        </form>
     </section>
     <div class="game-container hidden">
         <main id="rosco-container">
@@ -38,7 +40,7 @@
     </div>
         <section class="time-over-section hidden">
             <p id="time-over-message"></p>
-            <button class="button hidden">Play again</button>
+            <button class="button-play-again button hidden">Play again</button>
         </section>
     <table class="ranking-table hidden">
         <tr>

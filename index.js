@@ -209,6 +209,7 @@ const letters = [
 const gameTitle = document.getElementsByClassName("game-title");
 const sectionRules = document.getElementsByClassName("game-rules-section");
 const buttonStartGame = document.getElementsByClassName("button");
+const formPlayerName = document.getElementById("form-player-name");
 const inputPlayerName = document.getElementById("player-name");
 const gameContainer = document.getElementsByClassName("game-container");
 const container = document.getElementById("rosco-container");
@@ -223,7 +224,8 @@ const displayCorrectAnswered = document.getElementById("correctAnswered");
 const rankingTable = document.getElementsByClassName("ranking-table");
 const labelTimer = document.querySelector(".timer");
 const timeOverSection = document.getElementsByClassName("time-over-section");
-const timeOverMessage = document.getElementById("time-over-message")
+const timeOverMessage = document.getElementById("time-over-message");
+const buttonPlayAgain = document.getElementsByClassName("button-play-again")
 
 let newPLayer = {
   playerName: "",
@@ -288,14 +290,29 @@ formAnswers.addEventListener("submit", (e) => {
   nextQuestion(answerPlayer.toLowerCase());
 });
 
-buttonStartGame[0].addEventListener("click", startGame);
+formPlayerName.addEventListener("submit",(e)=>{
+  e.preventDefault();
+  let userName = inputPlayerName.value;
+  if (userName==="") {
+    return
+  }
+  newPLayer.playerName = userName;
+  startGame();
+})
+
+
+
 displayCorrectAnswered.textContent = correctAnswer;
 
+
+
+
 function startGame() {
-  console.log(gameTitle[0].textContent);
-  newPLayer.playerName = inputPlayerName.value;
-  sectionRules[0].classList.replace("game-rules-section", "hidden");
+  
+  sectionRules[0].classList.remove("game-rules-section");
   gameContainer[0].classList.remove("hidden");
+
+ 
   gameTimer();
 }
 
@@ -307,7 +324,7 @@ function nextQuestion(answerPlayer) {
   if (position === questions.length || totalAnswered===questions.length) {
     checkTotalAnswered();
   }
-
+  
   input.value = "";
   showQuestions();
 }
@@ -336,7 +353,7 @@ const showQuestions = () => {
 };
 
 const checkAnswer = (answerPlayer) => {
-
+  
   if (answerPlayer === questions[position].answer) {
     questions[position].status = 1;
     letterCircle[position].classList.add("green");
@@ -373,9 +390,9 @@ const playerPoints = (correctAnswers) => {
   const rankingSorted = ranking.sort(function (a, b) {
     return b.points - a.points;
   });
-
+  
   saveRankingLocalStorage(rankingSorted);
-
+  
   return rankingSorted;
 };
 
@@ -385,36 +402,49 @@ function saveRankingLocalStorage(ranking) {
 
 function getRankingFromLocalStorage(ranking) {
   ranking = JSON.parse(localStorage.getItem("ranking"));
-
+  
   return ranking;
 }
 
 const gameTimer = function(){
-
+  
   const tick = function() {
     const min = String(Math.trunc(time/60)).padStart(2,0);
     const sec = String(time%60).padStart(2,0);
     labelTimer.textContent=`${min}:${sec}`
     time--;
-
+    
     if (time===0) {
       clearInterval(timer);
       gameTitle[0].textContent = "Time over";
       timeOverMessage.textContent=`The player ${newPLayer.playerName} has ${newPLayer.correctAnswers} correct answers and made ${newPLayer.wrongAnswers} mistakes`
       gameContainer[0].classList.replace("game-container","hidden");
       timeOverSection[0].classList.remove("hidden");
+      buttonPlayAgain[0].classList.remove("hidden");
     }
   }
   
-  let time = 60;
+  let time = 20;
   tick()
   
   const timer = setInterval(tick,1000)
   
 }
 
-const welcomePlayer = () => {};
+function restartGame(){
+location.reload();
+}
 
-welcomePlayer();
+buttonPlayAgain[0].addEventListener("click",restartGame);
+
+
+// function welcomePlayer() {
+//   timeOverSection[0].classList.replace("time-over-section","hidden");
+//   gameTitle[0].textContent="Pasapalabra";
+//   sectionRules[0].classList.replace("hidden","game-rules-section");
+  
+// };
+
+// welcomePlayer();
 createRosco();
 showQuestions();
