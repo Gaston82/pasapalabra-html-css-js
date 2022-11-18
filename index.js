@@ -221,6 +221,9 @@ const formAnswers = document.getElementById("form-answers");
 const letterCircle = document.getElementsByClassName("circle");
 const displayCorrectAnswered = document.getElementById("correctAnswered");
 const rankingTable = document.getElementsByClassName("ranking-table");
+const labelTimer = document.querySelector(".timer");
+const timeOverSection = document.getElementsByClassName("time-over-section");
+const timeOverMessage = document.getElementById("time-over-message")
 
 let newPLayer = {
   playerName: "",
@@ -293,6 +296,7 @@ function startGame() {
   newPLayer.playerName = inputPlayerName.value;
   sectionRules[0].classList.replace("game-rules-section", "hidden");
   gameContainer[0].classList.remove("hidden");
+  gameTimer();
 }
 
 function nextQuestion(answerPlayer) {
@@ -350,7 +354,7 @@ const checkAnswer = (answerPlayer) => {
 };
 
 const checkTotalAnswered = () => {
-  debugger
+  
   if (totalAnswered === questions.length) {
     let totalPoints = playerPoints(newPLayer.correctAnswers);
     gameContainer[0].classList.replace("game-container", "hidden");
@@ -383,6 +387,30 @@ function getRankingFromLocalStorage(ranking) {
   ranking = JSON.parse(localStorage.getItem("ranking"));
 
   return ranking;
+}
+
+const gameTimer = function(){
+
+  const tick = function() {
+    const min = String(Math.trunc(time/60)).padStart(2,0);
+    const sec = String(time%60).padStart(2,0);
+    labelTimer.textContent=`${min}:${sec}`
+    time--;
+
+    if (time===0) {
+      clearInterval(timer);
+      gameTitle[0].textContent = "Time over";
+      timeOverMessage.textContent=`The player ${newPLayer.playerName} has ${newPLayer.correctAnswers} correct answers and made ${newPLayer.wrongAnswers} mistakes`
+      gameContainer[0].classList.replace("game-container","hidden");
+      timeOverSection[0].classList.remove("hidden");
+    }
+  }
+  
+  let time = 60;
+  tick()
+  
+  const timer = setInterval(tick,1000)
+  
 }
 
 const welcomePlayer = () => {};
