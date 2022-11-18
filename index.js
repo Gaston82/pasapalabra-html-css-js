@@ -281,11 +281,11 @@ function createRanking(points) {
 
 formAnswers.addEventListener("submit", (e) => {
   e.preventDefault();
-  let answerPlayer = input.value;
-  nextQuestion(answerPlayer);
+  answerPlayer = input.value;
+  nextQuestion(answerPlayer.toLowerCase());
 });
+
 buttonStartGame[0].addEventListener("click", startGame);
-// pasapalabraButton.addEventListener("click", nextQuestion);
 displayCorrectAnswered.textContent = correctAnswer;
 
 function startGame() {
@@ -332,9 +332,6 @@ const showQuestions = () => {
 };
 
 const checkAnswer = (answerPlayer) => {
-  answerPlayer = input.value;
-  // let pasapalabraOption = "";
-  // let pasapalabraOption = pasapalabraButton.textContent;
 
   if (answerPlayer === questions[position].answer) {
     questions[position].status = 1;
