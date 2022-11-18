@@ -370,6 +370,7 @@ const checkTotalAnswered = () => {
     let rankingFromLocalStorage = getRankingFromLocalStorage(totalPoints);
     gameTitle[0].textContent = "Ranking";
     createRanking(rankingFromLocalStorage);
+    buttonPlayAgain[0].classList.remove("hidden")
   } else {
     position = 0;
   }
