@@ -414,7 +414,7 @@ const gameTimer = function () {
     }
   };
 
-  let time = 20;
+  let time = 120;
   tick();
 
   const timer = setInterval(tick, 1000);
