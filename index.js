@@ -281,7 +281,8 @@ function createRanking(points) {
 
 formAnswers.addEventListener("submit", (e) => {
   e.preventDefault();
-  nextQuestion(input.value);
+  let answerPlayer = input.value;
+  nextQuestion(answerPlayer);
 });
 buttonStartGame[0].addEventListener("click", startGame);
 // pasapalabraButton.addEventListener("click", nextQuestion);
@@ -294,12 +295,12 @@ function startGame() {
   gameContainer[0].classList.remove("hidden");
 }
 
-function nextQuestion() {
-  checkAnswer();
+function nextQuestion(answerPlayer) {
+  checkAnswer(answerPlayer);
   if (position < questions.length) {
     position++;
   }
-  if (position === questions.length) {
+  if (position === questions.length || totalAnswered===questions.length) {
     checkTotalAnswered();
   }
 
@@ -330,9 +331,9 @@ const showQuestions = () => {
   }
 };
 
-const checkAnswer = () => {
+const checkAnswer = (answerPlayer) => {
   answerPlayer = input.value;
-  let pasapalabraOption = "";
+  // let pasapalabraOption = "";
   // let pasapalabraOption = pasapalabraButton.textContent;
 
   if (answerPlayer === questions[position].answer) {
@@ -340,7 +341,7 @@ const checkAnswer = () => {
     letterCircle[position].classList.add("green");
     totalAnswered++;
     newPLayer.correctAnswers += 1;
-    displayCorrectAnswered.textContent = correctAnswer;
+    displayCorrectAnswered.textContent = newPLayer.correctAnswers;
   } else if (answerPlayer === "pasapalabra") {
     questions[position].status = 3;
   } else {
@@ -352,6 +353,7 @@ const checkAnswer = () => {
 };
 
 const checkTotalAnswered = () => {
+  debugger
   if (totalAnswered === questions.length) {
     let totalPoints = playerPoints(newPLayer.correctAnswers);
     gameContainer[0].classList.replace("game-container", "hidden");
