@@ -300,7 +300,7 @@ formPlayerName.addEventListener("submit", (e) => {
   startGame();
 });
 
-displayCorrectAnswered.textContent = correctAnswer;
+displayCorrectAnswered.textContent = `Correct answers : ${correctAnswer}`;
 
 function startGame() {
   sectionRules[0].classList.remove("game-rules-section");
@@ -351,7 +351,7 @@ const checkAnswer = (answerPlayer) => {
     letterCircle[position].classList.add("green");
     totalAnswered++;
     newPLayer.correctAnswers += 1;
-    displayCorrectAnswered.textContent = newPLayer.correctAnswers;
+    displayCorrectAnswered.textContent = `Correct answers : ${newPLayer.correctAnswers}`;
   } else if (answerPlayer === "pasapalabra") {
     questions[position].status = 3;
   } else {
@@ -402,7 +402,7 @@ const gameTimer = function () {
   const tick = function () {
     const min = String(Math.trunc(time / 60)).padStart(2, 0);
     const sec = String(time % 60).padStart(2, 0);
-    labelTimer.textContent = `${min}:${sec}`;
+    labelTimer.textContent = `Time : ${min}:${sec}`;
     time--;
 
     if (time === 0) {
