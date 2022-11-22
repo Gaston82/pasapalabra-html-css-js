@@ -261,7 +261,14 @@ let wrongAnswer = 0;
 let totalAnswered = 0;
 let answerPlayer;
 
-function createRanking(points) {
+const startGame = () => {
+  sectionRules[0].classList.remove("game-rules-section");
+  gameContainer[0].classList.remove("hidden");
+
+  gameTimer();
+};
+
+const createRanking = (points) => {
   points.forEach((player, index) => {
     let rowTable = document.createElement("tr");
     let columnPosition = document.createElement("td");
@@ -282,7 +289,7 @@ function createRanking(points) {
     rowTable.appendChild(columnWrong);
     rankingTable[0].appendChild(rowTable);
   });
-}
+};
 
 formAnswers.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -302,14 +309,7 @@ formPlayerName.addEventListener("submit", (e) => {
 
 displayCorrectAnswered.textContent = `Correct answers : ${correctAnswer}`;
 
-function startGame() {
-  sectionRules[0].classList.remove("game-rules-section");
-  gameContainer[0].classList.remove("hidden");
-
-  gameTimer();
-}
-
-function nextQuestion(answerPlayer) {
+const nextQuestion = (answerPlayer) => {
   checkAnswer(answerPlayer);
   if (position < questions.length) {
     position++;
@@ -320,7 +320,7 @@ function nextQuestion(answerPlayer) {
 
   input.value = "";
   showQuestions();
-}
+};
 
 const createLetters = () => {
   for (let i = 0; i < letters.length; i++) {
@@ -354,12 +354,27 @@ const checkAnswer = (answerPlayer) => {
     displayCorrectAnswered.textContent = `Correct answers : ${newPLayer.correctAnswers}`;
   } else if (answerPlayer === "pasapalabra") {
     questions[position].status = 3;
+  } else if (answerPlayer === "end") {
+    console.log("hello");
+    gameContainer[0].classList.add("hidden");
+    gameTitle[0].textContent = "You have left the game";
+    timeOverMessage.textContent = `The player ${newPLayer.playerName} has ${newPLayer.correctAnswers} correct answers and made ${newPLayer.wrongAnswers} mistakes`;
   } else {
     questions[position].status = 1;
     letterCircle[position].classList.add("red");
     totalAnswered++;
     newPLayer.wrongAnswers += 1;
   }
+};
+
+const saveRankingLocalStorage = (ranking) => {
+  localStorage.setItem("ranking", JSON.stringify(ranking));
+};
+
+const getRankingFromLocalStorage = (ranking) => {
+  ranking = JSON.parse(localStorage.getItem("ranking"));
+
+  return ranking;
 };
 
 const checkTotalAnswered = () => {
@@ -370,7 +385,7 @@ const checkTotalAnswered = () => {
     let rankingFromLocalStorage = getRankingFromLocalStorage(totalPoints);
     gameTitle[0].textContent = "Ranking";
     createRanking(rankingFromLocalStorage);
-    buttonPlayAgain[0].classList.remove("hidden")
+    buttonPlayAgain[0].classList.remove("hidden");
   } else {
     position = 0;
   }
@@ -387,16 +402,6 @@ const playerPoints = (correctAnswers) => {
 
   return rankingSorted;
 };
-
-function saveRankingLocalStorage(ranking) {
-  localStorage.setItem("ranking", JSON.stringify(ranking));
-}
-
-function getRankingFromLocalStorage(ranking) {
-  ranking = JSON.parse(localStorage.getItem("ranking"));
-
-  return ranking;
-}
 
 const gameTimer = function () {
   const tick = function () {
@@ -421,9 +426,9 @@ const gameTimer = function () {
   const timer = setInterval(tick, 1000);
 };
 
-function restartGame() {
+const restartGame = () => {
   location.reload();
-}
+};
 
 buttonPlayAgain[0].addEventListener("click", restartGame);
 
