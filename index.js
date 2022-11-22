@@ -359,6 +359,7 @@ const checkAnswer = (answerPlayer) => {
     gameContainer[0].classList.add("hidden");
     gameTitle[0].textContent = "You have left the game";
     timeOverMessage.textContent = `The player ${newPLayer.playerName} has ${newPLayer.correctAnswers} correct answers and made ${newPLayer.wrongAnswers} mistakes`;
+    buttonPlayAgain[0].classList.remove("hidden");
   } else {
     questions[position].status = 1;
     letterCircle[position].classList.add("red");
