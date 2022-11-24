@@ -113,37 +113,43 @@ const showQuestions = () => {
   for (let i = position; i < questions.length; i++) {
     if (questions[i].status === 0) {
       questionsParagraph.textContent = questions[i].question;
-      break;
+      return
     }
     if (questions[i].status === 3) {
       position = i;
       questionsParagraph.textContent = questions[i].question;
-      break;
+      return
     }
   }
 };
 
-const checkAnswer = (answerPlayer) => {
-  if (answerPlayer === questions[position].answer) {
-    questions[position].status = 1;
-    letterCircle[position].classList.add("green");
-    totalAnswered++;
-    newPLayer.correctAnswers += 1;
-    displayCorrectAnswered.textContent = `Correct answers : ${newPLayer.correctAnswers}`;
-  } else if (answerPlayer === "pasapalabra") {
-    questions[position].status = 3;
-  } else if (answerPlayer === "end") {
-    gameContainer[0].classList.add("hidden");
-    gameTitle[0].textContent = "You have left the game";
-    timeOverMessage.textContent = `The player ${newPLayer.playerName} has ${newPLayer.correctAnswers} correct answers and made ${newPLayer.wrongAnswers} mistakes`;
-    buttonPlayAgain[0].classList.remove("hidden");
-  } else {
-    questions[position].status = 1;
-    letterCircle[position].classList.add("red");
-    totalAnswered++;
-    newPLayer.wrongAnswers += 1;
+
+const checkAnswer=(answerPlayer)=>{
+  switch (answerPlayer) {
+    case "end":
+      gameContainer[0].classList.add("hidden");
+      gameTitle[0].textContent = "You have left the game";
+      timeOverMessage.textContent = `The player ${newPLayer.playerName} has ${newPLayer.correctAnswers} correct answers and made ${newPLayer.wrongAnswers} mistakes`;
+      buttonPlayAgain[0].classList.remove("hidden"); 
+      break;
+    case questions[position].answer:
+      questions[position].status = 1;
+      letterCircle[position].classList.add("green");
+      totalAnswered++;
+      newPLayer.correctAnswers += 1;
+      displayCorrectAnswered.textContent = `Correct answers : ${newPLayer.correctAnswers}`;
+      break;
+    case "pasapalabra": 
+      questions[position].status = 3;
+      break;
+    default:
+      questions[position].status = 1;
+      letterCircle[position].classList.add("red");
+      totalAnswered++;
+      newPLayer.wrongAnswers += 1;
+      break;
   }
-};
+}
 
 const saveRankingLocalStorage = (ranking) => {
   localStorage.setItem("ranking", JSON.stringify(ranking));
@@ -172,7 +178,7 @@ const checkTotalAnswered = () => {
 const playerPoints = (correctAnswers) => {
   newPLayer.points = correctAnswers;
   ranking.push(newPLayer);
-  const rankingSorted = ranking.sort(function (a, b) {
+  const rankingSorted = ranking.sort((a, b) =>{
     return b.points - a.points;
   });
 
@@ -181,8 +187,8 @@ const playerPoints = (correctAnswers) => {
   return rankingSorted;
 };
 
-const gameTimer = function () {
-  const tick = function () {
+const gameTimer =  ()=> {
+  const tick = ()=> {
     const min = String(Math.trunc(time / 60)).padStart(2, 0);
     const sec = String(time % 60).padStart(2, 0);
     labelTimer.textContent = `Time : ${min}:${sec}`;
